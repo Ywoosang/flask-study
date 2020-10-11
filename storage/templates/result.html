@@ -4,17 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        header{
+            height: 64px;
+            border: 1px solid black ;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div>장바구니</div>
+    </header>
+    <section class="main">
   {% for item in L %}
   <li>{{ item }}</li>
-  {% endfor %}
+  {% endfor %}  
+    </section>
   <form action="/reset" method="post"> 
     <input type="submit" value="저장소를 비웁니다.">
 </form>
 <form action="/" method="get">
     <input type="submit" value="메인 화면으로 돌아갑니다.">
 </form>
+  
     
 </body>
 </html>
