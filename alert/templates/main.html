@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alert 구현</title>
+    <!-- <script src="../static/alert.js" defer></script> -->
+    <script src="{{ url_for('static', filename='alert.js') }}" defer> </script>
+</head>
+<body>
+    <p id='test'>테스트</p>
+    <!-- <script>
+        var info = JSON.parse('{{ message | tojson |safe}}');
+        console.log(info);
+        console.log(typeof info);
+        if(info.cnt == 0){
+            alert(info.text)
+        }
+        var test = document.getElementById('test');
+        test.innerHTML = info.text
+    </script> -->
+</body>
+</html>
+ 
