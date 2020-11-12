@@ -4,62 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비동기 통신</title>
-    <style>
-        body{
-            margin : 0;
-            text-align : center;
-            width: 100vw; 
-            height: 100vh;
-        }
-        #test-form{
-            display : inline-block;
-            background : #ddd; 
-            width: 20%;
-            height:30%
-        }
-        #test-box{
-            display :block ;
-            margin:0 auto;
-            width: 100%;
-            height: 40%;
-            box-sizing: border-box;
-            border: 0;
-            text-decoration: none;
-        }
-        #test-btn{
-            width :100%;
-            height: 10%
-        }
-
-    </style>
+<style>
+    body{
+        margin : 0;
+        background : #ddd;
+        font-size: 20px
+    }
+    section{
+        width: 300px;
+        height: 100px;
+        margin:0 auto;
+        text-align: center;
+        margin-top: 200px;
+      
+    }
+</style>
 </head>
-<body>
+<body> 
+    <section> 
     <form action ="/test" id="test-form">
     <p>테스트 상자</p>
-    <textarea id="test-box"></textarea>
-    <input type="button" id="test-btn"> 
+    <button type="button" onclick="testSend1()" class="btn btn-primary">간단한 전송 버튼</button>
+    <button type="button" class="btn btn-warning" id="test-btn">전송버튼</button> 
     </form>
+    </section>
     <script>
-        //페이지1 에 있는 정보를 페이지 2로 넘겨보자
-        let list = ["회원1","회원2","회원3","회원4"]
-        async function submit_list(){
-            let response = await fetch('/test',{
-                method : "POST",
-                credentials : "include",
-                body : JSON.stringify(list),
-                cache : "no-cache",
-                headers : new Headers({
-                    "content-type" : "application/json;charset=utf-8"
-                })
-            })
-            .then(function(response){
-                if(response.status !==200){
-                    
+
+    
+    
+    const testSend ={
+        option : {
+            method : "POST", 
+            url : "http://localhost:5000/",
+            data : {name : "Ywoosang"}
+        },
+        create(pram){
+            return new Promise((resolve,reject) =>{
+                const xhr = new XMLHttpRequest(); // 인스턴스 생성
+                xhr.onload = function(){ 
+                    console.log(this)
+                    this.status == 200 ? resolve(JSON.parse(this.response)) : reject(this);
                 }
-            })
+               
+                xhr.option = this.option; // Promise 환경에서 this 는 main 객체를 참조한다 
+                xhr.option.sendData = JSON.stringify(xhr.option.data); 
+               
+                xhr.open(xhr.option.method,xhr.option.url); 
+                xhr.send(xhr.option.sendData);
+            });
+        },
+        async getName(){
+            try{ 
+                const res = await this.create(this.option); //resolve this.response 가 담김 
+                this.showData(res); 
+            }catch(error){
+                this.serverError(error) 
+            };
+        },
+        showData(res){ 
+            console.log(res) 
+        },
+        serverError(error){
+            console.log(error) 
         }
-        
-        
+    }
+    const testButton = document.getElementById('test-btn');
+    testButton.addEventListener('click',sendRequest);
+    function sendRequest(){
+        testSend.getName();
+    }
+     
+
     </script>
 </body>
 </html>

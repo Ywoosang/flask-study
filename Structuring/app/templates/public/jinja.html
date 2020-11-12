@@ -1,0 +1,121 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}Jinja{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Jinja templates</h1>
+            <hr>
+            <h4>variables</h4>
+
+            <p>Name : {{ my_name }}</p>
+            <hr>
+            <h4>Looping</h4>
+            <ul>
+                {% for lang in langs %}
+                <li>{{ lang }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h4>Looping with index</h4>
+            <ul>
+                {% for lang in langs %}
+                <li>{{loop.index }} : {{ lang }}</li>  <!-- loop.index 로 인덱스 가져올 수 있음 1부터 시작 loop.index0 하면 0부터 시작-->
+                {% endfor %}
+            </ul>
+
+            <hr>
+            <h4>Looping a dict</h4>
+            <ul>
+                {% for k,v in friends.items() %}
+                <li>{{ k }}:{{ v }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h4>Looping a dict keys</h4>
+            <ul>
+                {% for k in friends.keys() %}
+                <li>{{ k }}</li>
+                {% endfor %}
+            </ul>
+            <hr>
+            <h4>Access list member</h4>
+            <p>{{ langs[0]}} </p>
+            <hr>
+
+            <h4>Access list member</h4>
+            <p>{{ friends["Tom"]}} </p>
+            <hr>
+            <h4>Access class attributes</h4>
+            <p>{{ my_remote.name }} </p>
+            <hr>
+
+            <h4>unpack variables</h4>   <!-- 템플릿에서 새로운 변수 더하기-->
+            {% set a,b = colours%}
+            <p>{{ a }}</p>
+            <p>{{ b }}</p>
+            <hr>
+
+            <h4>Call a function</h4>
+            <p>{{ repeat("Flask Is AWESOME", 10)}} </p>
+            <hr>
+
+            <h4>Cakk a class method</h4>
+            <p>{{ my_remote.clone() }} </p>
+            <hr>
+
+            <h4>Conditionals</h4> 
+            {% if cool %}
+                <p>cool is {{ cool }} </p> 
+            {% endif %} 
+            <hr>
+
+            <h4>Comparisons</h4> 
+            {% if age < 18 %}
+            <p>No entry</p>
+            {% elif age < 26 %}
+            <p>Nearly old enough</p>
+            {% else %}
+            <p>You may enter</p> 
+            {% endif %}
+            <hr> 
+
+            <h4>Math</h4>
+            <p>{{ age /2 }} </p>
+            <hr>
+
+            <h4>Template filters</h4> 
+            <p> 리스트 길이 : {{ langs| length }} </p> <!-- |로 플라스크 필터를 적용할 수 있다. length 리스트의 길이 반환-->
+            <p> 딕셔너리 길이 : {{ friends | length }} </p> 
+            <p> Set 길이 : {{ colours | length }} </p> 
+            <p> Set 길이 : {{ my_name | reverse }} </p> <!--  문자열 뒤집기 -->
+            <p> Set 길이 : {{ my_name | upper }} </p> <!-- 대문자로 -->
+            <p> {{ langs | join(' , ') }}</p> <!-- 데이터 베이스에서 저장된 리스트를 가져오거나 할때 -->
+
+            <h4>Custom filters</h4> 
+            <p>{{ date }}</p>
+            <p>{{ date | clean_date}} </p> <!-- 블로그 글쓰기나 포스트 같은거 등록 할때 그냥 데이터 베이스에 집어넣고 html 에서 진자로 예쁘게 모양 만들기 가능-->
+ 
+            <h4>Escaping</h4> 
+            <p>{{ sample_html | safe }}</p>
+            <!-- <p>{{ makeAlert | safe }} </p> 자바스크립트가 동작함  script 태그로 변환된다. -->
+            <!--
+                Escaping : 기본적으로 HTML 이나 문자열을 render_template 로 넘길때 
+                jinja 는 그 문자열을 필터링 한다 그래서 많은 코드를 넘길때 에러나면 힘듬 
+                cross-site scripting 과 사람들이 웹사이트에 악용하는 다양한 기술들을 원치 않는다.
+                그래서 플라스크의 진자는 escape 한다 그 문자열들을  그리고 특정한 안전한 characters로 바꾼다. 
+            -->
+            <h4>Macros</h4>
+            {% macro
+            <!-- 
+                진자에서 메크로는 일종의 함수와 같다 
+            -->
+             
+          
+        </div>
+    </div>
+
+    {% endblock %}

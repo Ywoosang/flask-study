@@ -1,0 +1,81 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %} Gue {% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Guestbook</h1>
+            <hr>
+            <div class="mb-3">
+                <div class="form-group">
+                    <label>Name</label> 
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" >
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea class="form-control" id="message" cols="30" rows="3" placeholder="Enter your message"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="submit_entry()">Leave message</button>
+            </div 
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+<!-- public template 의 script 블록 자리에 간다. 
+ -->
+
+
+{% block script %} 
+
+<script>
+    //form 태그의 onclick 이벤트 발생 시 submit_entry() 와 연결
+    async function submit_entry(){
+        var name = document.getElementById("name"); 
+        var message = document.getElementById("message");
+        let entry = {
+            name: name.value,
+            messaage : message.value
+        };
+        
+        let response = await fetch('/guestbook/create-entry',{
+            method : "POST",
+            credentials : "include",
+            body : JSON.stringify(entry),
+            cache : "no-cache",
+            headers : new Headers({
+                "content-type":"application/json;charset=utf-8"
+            })
+        })
+        .then(function(response){
+            if(response.status !==200){
+                console.log(`Response status was not 200 ${response.status}`)
+                return ;
+            }
+            response.json().then(function(data){
+                console.log(data)  //then 으로 백엔드에서 보내온 데이터를 받는다
+            })
+        })
+         
+    }
+</script>     
+    //Json 데이터를 flask /guestbook/entry 에 Post 로 다시 전송한다.
+    /* fetch api 를 사용해서  url 지정
+    window.origin 주소가 url(domain) 
+    init constructor 두번째 파라미터
+    어떤 쿠키든 계속할 수 있다는것을 의미  그리고 쿠키들을 포함한다 서버에 posted 될것이라는 것을 
+    당장은 아니고 나중에 사용한다. 
+    request 의 body 는 우리의 전체 objectives 가 될 것이다 . 그래서 Json.stringify 을 사용해서 첫번째로 바꿔준다 string 으로
+    chaching 을 원하지 않기 때문에  no-cache 로 
+    header 도 새롭게 붙여줌 
+    vet reqeust 완료
+    */
+ 
+
+{% endblock %}  
+

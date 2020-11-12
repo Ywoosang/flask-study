@@ -44,12 +44,7 @@ def before_request():
             user =user_list[0]
         g.user = user
             #어디에서든 g 를 사용할 수 있다 이미 로그인 되어있다면 
-            # user 에 접근이 가능할 것이다. 이미 로그인 되어있다면
-
-
-
-
-
+            # user 에 접근이 가능할 것이다.  
 
 @app.route('/login', methods=["GET","POST"])
 def login():
@@ -89,12 +84,12 @@ def profile():
     if not g.user:
        # abort(403) #로그인 실패해서 세션없어지고 다시 이전페이지로 오면 forbidden error 내기 
         return render_template('login.html')
-    return render_template('profile.html')  
+    return render_template('profile.html')   
 
 
 app.run(host='0.0.0.0',debug=True)
 
 #유저가 로그인폼에 입력하면 app이 username과 password 가 맞는지 검사하고 
 # 맞다면 app 은 session 을 이용해 user 가 로그인했는지, 로그인하지 않았는지 log 를 적고
-# 프로필 페이지로 redirect 시킨다. 
+# 프로필 페이지로 redirect 시킨다.  
 

@@ -12,20 +12,15 @@ def mainpage():
 #세션과 쿠키를 사용한다. 
 
 #전역번수 g 객체에 데이터베이스 연결을 저장해둔다. 
-#g 객체에 하나의 요청에 
 
 @app.before_request
 def before_request():
     g.db = pymysql.connect(host='localhost', port=3306, user='root', passwd='bodu3717@@', db='logintest', charset='utf8')
+    print("데이터 베이스가 연결되었습니다.")
 @app.teardown_request
 def teardown_request(exception):
     g.db.close()
     print("데이터 베이스 연결을 종료합니다.")
-    
-
-
-
-
      
 @app.route('/login',methods=["POST"])
 def login():
@@ -67,10 +62,6 @@ app.run(debug=True)
 
         
 
-
-
-
-    
 
 
 
