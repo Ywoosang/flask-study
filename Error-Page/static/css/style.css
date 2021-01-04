@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'SDSamliphopangche_Outline';
+    margin :0;
+    text-align: center;
+    height: 100vh;
+}
+.main{
+    height: inherit;
+    display: flex;
+    justify-content: center;
+}
+.error-wrapper{
+    margin-top: 10rem;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 3px 3px 10px #ddd;
+    background-color: rgb(247, 247, 247);
+}
+.error-text{
+    color : crimson;
+    font-size: 3rem;
+    margin: 4rem;
+}
+.error-wrapper .error-status-code{
+    position :relative; 
+    font-size: 10rem;
+}
+.error-icon{
+    position : absolute;
+    color : crimson;
+    font-size: 7rem;
+    left: -7rem;
+    bottom : 50%;
+    transform: translateY(50%);
+}
+   
